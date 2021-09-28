@@ -42,34 +42,40 @@ let rec slice list i j = match list with
 
 (**Question 5*)
 
-let rec equivs equivFun list = 
+let rec equivs equivFun list = ;;
 
 
 
 (**Question 6*)
 
-let rec goldbachpair num = 
+let rec goldbachpair num = ;;
 
 
 
 (**Question 7*)
 
+let rec equiv_on f g lst = match lst with
 
+    | [] -> true
 
-
+    | x :: xs -> if f x <> g x
+                 then false
+                 else equiv_on f g xs;;
 
 (**Question 8*)
 
-
+let rec pariwisefilter cmp lst = ;;
 
 
 
 (**Question 9*)
 
+let rec polynomial list x = match list with
 
+    | [] -> 0
 
-
+    | x1 :: xs -> (fst x1) * (pow x (snd x1))
+                            + polynomial xs x;;
 
 (**Question 10*)
-
 
