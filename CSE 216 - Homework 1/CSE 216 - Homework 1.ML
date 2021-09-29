@@ -48,9 +48,34 @@ let rec equivs equivFun list = ;;
 
 (**Question 6*)
 
-let rec goldbachpair num = ;;
+(** isPrime calls isPrimeHelper with num is the number we
+  * want to find primeness and x is the number we're checking
+  * it against. x must be initialized at 2 and we will 
+  * check up to x.
+  *)
+
+let isPrime num =
+    let rec isPrimeHelper num x =
+
+        if (num mod x = 0)         then false
+        else if (x = num - 1)       then true
+        else                        isPrimeHelper num (x + 1)
+        
+    in 
+    
+    if num < 2          then false
+    else if num = 2     then true
+    else                isPrimeHelper num 2;;
 
 
+let goldbachpair num =
+    let rec goldbachpairLooper x = 
+
+        if (isPrime x && isPrime (num - x))
+        then (x, num - x)
+        else goldbachpairLooper (x + 1)
+
+    in goldbachpairLooper 2;;
 
 (**Question 7*)
 
@@ -64,9 +89,12 @@ let rec equiv_on f g lst = match lst with
 
 (**Question 8*)
 
-let rec pariwisefilter cmp lst = ;;
+let rec pairwisefilter cmp lst = match lst with
 
+    | [] -> []
+    | [x] -> [x]
 
+    | x1 :: x2 :: xs -> (cmp x1 x2) :: pairwisefilter cmp xs;;
 
 (**Question 9*)
 
@@ -79,3 +107,8 @@ let rec polynomial list x = match list with
 
 (**Question 10*)
 
+let rec powerset list = match list with
+
+    | [] -> []
+
+    ;;
