@@ -107,8 +107,18 @@ let rec polynomial list x = match list with
 
 (**Question 10*)
 
-let rec powerset list = match list with
+let rec powersetRecur func lst = match list with
 
     | [] -> []
 
-    ;;
+    | x :: xs -> let helper = func x
+                    in helper :: powersetRecur func xs;;
+
+let rec powerset list = match list with
+
+    | [] -> [[]]
+
+                (**Appends the single and [] in the  front*)
+    | x :: xs -> powerset xs @
+                
+                powersetRecur (fun y -> x :: y) (powerset xs);;
