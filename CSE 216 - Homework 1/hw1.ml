@@ -42,9 +42,20 @@ let rec slice list i j = match list with
 
 (**Question 5*)
 
-let rec equivs equivFun list = ;;
+(**Get the element at index from list*)
 
+let rec equivs func list =
+    let rec equivsHelper equiv nEquiv list comp = match list with
 
+        | [] -> equiv :: equivs func nEquiv 
+        | x :: xs -> if func comp x
+                     then equivsHelper (x :: equiv) nEquiv xs comp
+                     else equivsHelper equiv (x :: nEquiv) xs comp
+    
+  in match list with 
+    
+        | [] -> []
+        | x :: xs -> equivsHelper [x] [] xs x;; 
 
 (**Question 6*)
 
@@ -107,18 +118,16 @@ let rec polynomial list x = match list with
 
 (**Question 10*)
 
-let rec powersetRecur func lst = match list with
+let rec powersetRecur func list = match list with
 
     | [] -> []
 
-    | x :: xs -> let helper = func x
-                    in helper :: powersetRecur func xs;;
+    | x :: xs -> func x :: powersetRecur func xs;;
 
 let rec powerset list = match list with
 
     | [] -> [[]]
 
-                (**Appends the single and [] in the  front*)
     | x :: xs -> powerset xs @
                 
                 powersetRecur (fun y -> x :: y) (powerset xs);;
