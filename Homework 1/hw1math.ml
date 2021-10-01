@@ -1,14 +1,14 @@
-type ('a, 'b) tree =
-    | Const of 'a
-    | Var of 'b
-    | Plus of ('a, 'b) node
-    | Minus of ('a, 'b) node
-    | Mult of ('a, 'b) node
-    | Div of ('a, 'b) node
+type tree =
+    | Const of int
+    | Var of string
+    | Plus of node
+    | Minus of node
+    | Mult of node
+    | Div of node
 
     and 
-        ('a, 'b) node = {arg1: ('a, 'b) tree;
-                        arg2: ('a, 'b) tree};;
+        node = {arg1: tree;
+                arg2: tree};;
 
 let rec evaluate expression = match expression with
 
