@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Circle implements TwoDShape, Positionable {
@@ -18,7 +19,7 @@ public class Circle implements TwoDShape, Positionable {
      */
     @Override
     public void setPosition(List<? extends Point> points) {
-        // TODO
+        this.center = (TwoDPoint) points.get(0);
     }
 
     /**
@@ -26,7 +27,10 @@ public class Circle implements TwoDShape, Positionable {
      */
     @Override
     public List<? extends Point> getPosition() {
-        return null; // TODO
+        List<TwoDPoint> pointList = new ArrayList<>();
+        pointList.add(center);
+
+        return pointList;
     }
 
     /**
@@ -54,14 +58,14 @@ public class Circle implements TwoDShape, Positionable {
      * @return the area of this circle
      */
     public double area() {
-        return 0; // TODO
+        return Math.PI * radius * radius;
     }
 
     /**
      * @return the perimeter (i.e., the total length of the boundary) of this quadrilateral
      */
     public double perimeter() {
-        return 0; // TODO
+        return 2 * Math.PI * radius;
     }
 
 }
