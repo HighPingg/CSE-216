@@ -4,7 +4,8 @@
 public interface Point {
 
     /**
-     * @return the coordinates of this point as an array of doubles, specifying its location in the geometric space.
+     * @return the coordinates of this point as an array of doubles, specifying its
+     *         location in the geometric space.
      */
     double[] coordinates();
 }
