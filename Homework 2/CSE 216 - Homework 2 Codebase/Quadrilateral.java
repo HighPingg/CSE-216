@@ -20,7 +20,70 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public void setPosition(List<? extends Point> points) {
-        // TODO
+        vertices = new ArrayList<>();
+
+        ArrayList<TwoDPoint> tempList = new ArrayList<>();
+
+        tempList.add((TwoDPoint) points.get(0));
+        tempList.add((TwoDPoint) points.get(1));
+        tempList.add((TwoDPoint) points.get(2));
+        tempList.add((TwoDPoint) points.get(3));
+
+        /*
+         * Finds the index of the left most vertex, or the vertex if the smallest x
+         * value. If there is another point with the same index, then we will take the
+         * point with the smallest y value.
+         */
+        int indexMinium = 0;
+        for (int i = 1; i < 4; i++) {
+            if (tempList.get(i).getX() < tempList.get(indexMinium).getX()
+                    || (tempList.get(i).getX() == tempList.get(indexMinium).getX()
+                            && (tempList.get(i).getY() < tempList.get(indexMinium).getY()))) {
+
+                indexMinium = i;
+            }
+        }
+
+        // Remove the rightmost vertex and add it to final list
+        vertices.add(tempList.remove(indexMinium));
+
+        /*
+         * Store each TwoDPoint using its slope to the rightmost vertex as its value and
+         * the point as the index. We will then add from the list to the list of
+         * vertices in order of highest to lowest slope.
+         */
+        ArrayList<Double> slopes = new ArrayList<>();
+        for (TwoDPoint element : tempList) {
+            slopes.add(TwoDPoint.slope(element, vertices.get(0)));
+        }
+
+        while (!slopes.isEmpty()) {
+
+            // Find the highest slope's index
+            int highestSlope = 0;
+
+            for (int i = 1; i < slopes.size(); i++) {
+                if (slopes.get(highestSlope) < slopes.get(i)) {
+                    highestSlope = i;
+                }
+
+                // Else if 2 values have the same slope, the one with the smaller x value is
+                // kept.
+                else if (slopes.get(highestSlope).equals(slopes.get(i))
+                        && (tempList.get(i).getX() <= tempList.get(highestSlope).getX())) {
+
+                    // If the x values are equal, then we take the one with the highest y value
+                    if ((tempList.get(i).getX() != tempList.get(highestSlope).getX())
+                            || (tempList.get(i).getY() > tempList.get(highestSlope).getY()))
+                        highestSlope = i;
+                }
+            }
+
+            // Adds that vertex to the final list and remove it from the temp and slope
+            // lists.
+            vertices.add(tempList.remove(highestSlope));
+            slopes.remove(highestSlope);
+        }
     }
 
     /**
@@ -89,5 +152,19 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     public double perimeter() {
         return 0; // TODO
+    }
+
+    public static void main(String[] args) {
+        ArrayList<TwoDPoint> points = new ArrayList<>();
+
+        points.add(new TwoDPoint(16, 1));
+        points.add(new TwoDPoint(16, 10));
+        points.add(new TwoDPoint(1, 10));
+        points.add(new TwoDPoint(1, 1));
+        points.add(new TwoDPoint(9, 10));
+
+        Quadrilateral quad = new Quadrilateral(points);
+
+        System.out.println(quad.getPosition());
     }
 }
