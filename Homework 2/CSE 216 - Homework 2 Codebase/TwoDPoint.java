@@ -78,7 +78,7 @@ public class TwoDPoint implements Point {
 
         ArrayList<TwoDPoint> list = new ArrayList<>();
 
-        for (int i = 0; i < coordinates.length; i+=2) {
+        for (int i = 0; i < coordinates.length; i += 2) {
             list.add(new TwoDPoint(coordinates[i], coordinates[i + 1]));
         }
 
