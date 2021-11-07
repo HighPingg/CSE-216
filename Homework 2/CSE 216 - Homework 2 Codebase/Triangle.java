@@ -102,8 +102,8 @@ public class Triangle implements TwoDShape, Positionable {
         temp.add((TwoDPoint) vertices.get(1));
         temp.add((TwoDPoint) vertices.get(2));
 
-        // If any 2 points are equal, then this is not a triangle.
-        if (temp.get(0).equals(temp.get(1)) || temp.get(0).equals(temp.get(2)) || temp.get(2).equals(temp.get(1)))
+        // If any 2 points are equal to the first, then this is not a triangle.
+        if (temp.get(0).equals(temp.get(1)) || temp.get(0).equals(temp.get(2)))
             return false;
 
         // If their slopes are equal, then this is just a line.
@@ -148,7 +148,7 @@ public class Triangle implements TwoDShape, Positionable {
         double term2 = (vertices.get(2).getX() - vertices.get(0).getX())
                 * (vertices.get(1).getY() - vertices.get(0).getY());
 
-        return 0.5 * (term1 - term2);
+        return 0.5 * (term2 - term1);
     }
 
     /**

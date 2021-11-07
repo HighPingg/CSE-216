@@ -123,7 +123,46 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public boolean isMember(List<? extends Point> vertices) {
-        return false; // TODO
+        /*
+         * We can use the Triangle class's isMember to help us here. All quadrilaterals
+         * can be split into 2 triangles. If we are given a quadrilateral ABCD, the 4
+         * triangles formed are ABC, ACD, BCD, ABD. As long as those 2 triangles are valid,
+         * then our quadrilateral is valid. (Essentially we're testing if any 3 points
+         * are in a straight line)
+         */
+
+        ArrayList<TwoDPoint> triangle = new ArrayList<>();
+
+        // Triangle ABC
+        triangle.add((TwoDPoint) vertices.get(0));
+        triangle.add((TwoDPoint) vertices.get(1));
+        triangle.add((TwoDPoint) vertices.get(2));
+
+        if (!(new Triangle(triangle).isMember(triangle)))
+            return false;
+
+        // Triangle ACD
+        triangle.set(0, (TwoDPoint) vertices.get(0));
+        triangle.set(1, (TwoDPoint) vertices.get(2));
+        triangle.set(2, (TwoDPoint) vertices.get(3));
+
+        if (!(new Triangle(triangle).isMember(triangle)))
+            return false;
+            
+        // Triangle BCD
+        triangle.set(0, (TwoDPoint) vertices.get(1));
+        triangle.set(1, (TwoDPoint) vertices.get(2));
+        triangle.set(2, (TwoDPoint) vertices.get(3));
+
+        if (!(new Triangle(triangle).isMember(triangle)))
+            return false;
+            
+        // Triangle ABD
+        triangle.set(0, (TwoDPoint) vertices.get(0));
+        triangle.set(1, (TwoDPoint) vertices.get(1));
+        triangle.set(2, (TwoDPoint) vertices.get(3));
+
+        return new Triangle(triangle).isMember(triangle);
     }
 
     /**
@@ -136,14 +175,46 @@ public class Quadrilateral implements TwoDShape, Positionable {
      * is an in-place procedure, and the current instance is modified.
      */
     public void snap() {
-        // TODO
+        ArrayList<TwoDPoint> snapped = new ArrayList<>();
+        snapped.add(vertices.get(0).clone());
+        snapped.add(vertices.get(1).clone());
+        snapped.add(vertices.get(2).clone());
+        snapped.add(vertices.get(3).clone());
+
+        for (TwoDPoint twoDPoint : snapped) {
+            twoDPoint.setX(Math.round(twoDPoint.getX()));
+            twoDPoint.setY(Math.round(twoDPoint.getY()));
+        }
+
+        if (isMember(snapped)) {
+            vertices = snapped;
+        }
     }
 
     /**
      * @return the area of this quadrilateral
      */
     public double area() {
-        return 0; // TODO
+
+        /*
+         * We will again split this quadrilateral into triangles and find the area of
+         * each triangle. We will then add up the area of these 2 triangles.
+         */
+
+
+        // Triangle ABC
+        ArrayList<TwoDPoint> triangle1 = new ArrayList<>();
+        triangle1.add(vertices.get(0));
+        triangle1.add(vertices.get(1));
+        triangle1.add(vertices.get(2));
+
+        // Triangle ACD
+        ArrayList<TwoDPoint> triangle2 = new ArrayList<>();
+        triangle2.add(vertices.get(0));
+        triangle2.add(vertices.get(2));
+        triangle2.add(vertices.get(3));
+
+        return new Triangle(triangle1).area() + new Triangle(triangle2).area();
     }
 
     /**
@@ -151,20 +222,12 @@ public class Quadrilateral implements TwoDShape, Positionable {
      *         quadrilateral
      */
     public double perimeter() {
-        return 0; // TODO
-    }
+        
+        double side1 = TwoDPoint.distance(vertices.get(0), vertices.get(1));
+        double side2 = TwoDPoint.distance(vertices.get(1), vertices.get(2));
+        double side3 = TwoDPoint.distance(vertices.get(2), vertices.get(3));
+        double side4 = TwoDPoint.distance(vertices.get(3), vertices.get(0));
 
-    public static void main(String[] args) {
-        ArrayList<TwoDPoint> points = new ArrayList<>();
-
-        points.add(new TwoDPoint(16, 1));
-        points.add(new TwoDPoint(16, 10));
-        points.add(new TwoDPoint(1, 10));
-        points.add(new TwoDPoint(1, 1));
-        points.add(new TwoDPoint(9, 10));
-
-        Quadrilateral quad = new Quadrilateral(points);
-
-        System.out.println(quad.getPosition());
+        return side1 + side2 + side3 + side4;
     }
 }
