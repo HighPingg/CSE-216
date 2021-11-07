@@ -28,19 +28,24 @@ public class Ordering {
     public static void main(String[] args) {
 
         /* ====== Any additional code you write to create instances or call methods, must be above this line ====== */
-        // TODO: The following two lines are using the raw type. Equip them with the proper parameters so that they work with the remainder of the code that follows.
-        List shapes = new ArrayList();
-        List points = new ArrayList();
+        List<TwoDShape> shapes = new ArrayList<>();
+        List<TwoDPoint> points = new ArrayList<>();
+
+        points.add(new TwoDPoint(-10.5, -6.3));
+        points.add(new TwoDPoint(12.4, -7.5));
+        points.add(new TwoDPoint(0, -1.2));
+        points.add(new TwoDPoint(8.5, 3.6));
+        points.add(new TwoDPoint(9.5, -11.8));
 
         /* ====== SECTION 1 ====== */
         /* uncomment the following block and fill in the "..." constructors to create actual instances. If your
          * implementations are correct, then the code should compile and yield the expected results of the various
          * shapes being ordered by their smallest x-coordinate, area, volume, surface area, etc. */
 
-        /*
-        shapes.add(new Circle(...));
-        shapes.add(new Triangle(...));
-        shapes.add(new Quadrilateral(...));
+        
+        shapes.add(new Circle(points.get(0).getX(), points.get(0).getY(), 16));
+        shapes.add(new Triangle(points));
+        shapes.add(new Quadrilateral(points));
 
         copy(new ArrayList<Circle>(), shapes); // note-1 //
 
@@ -52,7 +57,7 @@ public class Ordering {
         // TODO: Implement a static nested class so that uncommenting the following line works. The XLocationPointComparator must sort all the points in a collection in increasing order of their x-values.
         // points.sort(new XLocationPointComparator());
         Collections.sort(points); // TODO: Must sort the points in increasing order of their distance from the origin
-         */
+        
 
         /* ====== SECTION 2 ====== */
         /* if your changes to copy() are correct, uncommenting the following block will also work as expected note that
