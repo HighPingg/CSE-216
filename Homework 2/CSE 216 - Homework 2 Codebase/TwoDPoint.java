@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +71,18 @@ public class TwoDPoint implements Point {
      *                                  doubles.
      */
     public static List<TwoDPoint> ofDoubles(double... coordinates) throws IllegalArgumentException {
-        return null; // TODO
+
+        if (coordinates.length % 2 != 0) {
+            throw new IllegalArgumentException("Input List Must Be of Even Size");
+        }
+
+        ArrayList<TwoDPoint> list = new ArrayList<>();
+
+        for (int i = 0; i < coordinates.length; i+=2) {
+            list.add(new TwoDPoint(coordinates[i], coordinates[i + 1]));
+        }
+
+        return list;
     }
 
     /**
