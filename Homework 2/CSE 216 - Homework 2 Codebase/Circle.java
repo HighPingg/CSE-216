@@ -98,6 +98,6 @@ public class Circle implements TwoDShape, Positionable {
 
     @Override
     public int compareTo(TwoDShape o) {
-        return 0;
+        return ((Double) this.area()).compareTo(o.area());
     }
 }

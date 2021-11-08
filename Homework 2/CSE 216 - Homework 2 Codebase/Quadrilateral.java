@@ -263,7 +263,6 @@ public class Quadrilateral implements TwoDShape, Positionable {
 
     @Override
     public int compareTo(TwoDShape o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return ((Double) this.area()).compareTo(o.area());
     }
 }
