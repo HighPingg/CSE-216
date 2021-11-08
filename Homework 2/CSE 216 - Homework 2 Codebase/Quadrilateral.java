@@ -20,6 +20,12 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public void setPosition(List<? extends Point> points) {
+
+        for (Point point : points) {
+            if (!(point instanceof TwoDPoint))
+                throw new IllegalArgumentException("Points must be of type TwoDPoint");
+        }
+
         vertices = new ArrayList<>();
 
         ArrayList<TwoDPoint> tempList = new ArrayList<>();
@@ -133,6 +139,12 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public boolean isMember(List<? extends Point> vertices) {
+
+        for (Point vertex : vertices) {
+            if (!(vertex instanceof TwoDPoint))
+                throw new IllegalArgumentException("Points must be of type TwoDPoint");
+        }
+
         /*
          * We can use the Triangle class's isMember to help us here. All quadrilaterals
          * can be split into 2 triangles. If we are given a quadrilateral ABCD, the 4
@@ -246,6 +258,6 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public String toString() {
-        return "Quadrilateral{" + vertices + "}";
+        return "Quadrilateral" + vertices;
     }
 }

@@ -21,6 +21,11 @@ public class Triangle implements TwoDShape, Positionable {
     @Override
     public void setPosition(List<? extends Point> points) {
 
+        for (Point point : points) {
+            if (!(point instanceof TwoDPoint))
+                throw new IllegalArgumentException("Points must be of type TwoDPoint");
+        }
+
         vertices = new ArrayList<>();
 
         vertices.add((TwoDPoint) points.get(0));
@@ -107,6 +112,12 @@ public class Triangle implements TwoDShape, Positionable {
      */
     @Override
     public boolean isMember(List<? extends Point> vertices) {
+
+        for (Point vertex : vertices) {
+            if (!(vertex instanceof TwoDPoint))
+                throw new IllegalArgumentException("Points must be of type TwoDPoint");
+        }
+
         ArrayList<TwoDPoint> temp = new ArrayList<>();
         temp.add((TwoDPoint) vertices.get(0));
         temp.add((TwoDPoint) vertices.get(1));
@@ -178,6 +189,6 @@ public class Triangle implements TwoDShape, Positionable {
      */
     @Override
     public String toString() {
-        return "Triangle{" + vertices + "}";
+        return "Triangle" + vertices;
     }
 }

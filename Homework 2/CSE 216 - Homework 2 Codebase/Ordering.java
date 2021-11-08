@@ -11,8 +11,9 @@ import java.util.Set;
 public class Ordering {
 
     /**
-     * A comparator for two-dimensional shapes, based on the vertex with the least x-value. That is, sorting with this
-     * comparator must order all the shapes in a collection in increasing order of their least x-valued vertex.
+     * A comparator for two-dimensional shapes, based on the vertex with the least
+     * x-value. That is, sorting with this comparator must order all the shapes in a
+     * collection in increasing order of their least x-valued vertex.
      */
     static class XLocationShapeComparator implements Comparator<TwoDShape> {
 
@@ -23,8 +24,9 @@ public class Ordering {
     }
 
     /**
-     * A comparator for two-dimensional points, based on the point with the least x-value. That is, sorting with this
-     * comparator must order all the shapes in a collection in increasing order of their x-values.
+     * A comparator for two-dimensional points, based on the point with the least
+     * x-value. That is, sorting with this comparator must order all the shapes in a
+     * collection in increasing order of their x-values.
      */
     static class XLocationPointComparator implements Comparator<Point> {
 
@@ -106,28 +108,34 @@ public class Ordering {
          * you may safely assume that no test input will be used in grading where a vertex has more than two decimal places.
          */
 
-        /*List<TwoDShape> lst = new ArrayList<>();
-        lst.add(new Circle(...));
-        lst.add(new Triangle(...));
+        List<TwoDShape> lst = new ArrayList<>();
+        lst.add(new Circle(10.6, 3.5, 16));
+        lst.add(new Triangle(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.31), new TwoDPoint(13.59, 1.31))));
+        lst.add(new Quadrilateral(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.23), new TwoDPoint(1.59, 7.31), new TwoDPoint(16.58, 4.15))));
         printAllAndReturnLeast(lst, new Printer());
-         */
+
     }
 
-    // TODO: There's a lot wrong with this method. correct it so that it can work properly with SECTION 3 of the main method written above.
-    // NOTE: This method may compile after you implement just one thing, but pay attention to the warnings in your IDE.
+    // TODO: There's a lot wrong with this method. correct it so that it can work
+    // properly with SECTION 3 of the main method written above.
+    // NOTE: This method may compile after you implement just one thing, but pay
+    // attention to the warnings in your IDE.
     // Just because the method compiles doesn't mean it is fully correct.
     /**
-     * This method prints each element of a list of various types of two-dimensional shapes (i.e., {@link TwoDShape}, as
-     * defined in the {@link Printer<TwoDShape>#print} method. When the printing process is complete, it returns the
-     * least instance, as per the natural order of the {@link TwoDShape} instances. SECTION 1 in the main method above
-     * defines this natural order.
+     * This method prints each element of a list of various types of two-dimensional
+     * shapes (i.e., {@link TwoDShape}, as defined in the
+     * {@link Printer<TwoDShape>#print} method. When the printing process is
+     * complete, it returns the least instance, as per the natural order of the
+     * {@link TwoDShape} instances. SECTION 1 in the main method above defines this
+     * natural order.
      *
-     * Note that the natural ordering of shapes is not provided to you. This is something you must implement as part of
-     * the assignment.
+     * Note that the natural ordering of shapes is not provided to you. This is
+     * something you must implement as part of the assignment.
      *
-     * @param aList the list of provided two-dimensional shape instances
+     * @param aList    the list of provided two-dimensional shape instances
      * @param aPrinter the specified printer instance
-     * @return the least element from <code>aList</code>, as per the natural ordering of the shapes
+     * @return the least element from <code>aList</code>, as per the natural
+     *         ordering of the shapes
      */
     static Object printAllAndReturnLeast(List aList, AbstractPrinter aPrinter) {
         Object least = aList.get(0);

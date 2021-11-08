@@ -21,6 +21,12 @@ public class Circle implements TwoDShape, Positionable {
      */
     @Override
     public void setPosition(List<? extends Point> points) {
+
+        for (Point point : points) {
+            if (!(point instanceof TwoDPoint))
+                throw new IllegalArgumentException("Points must be of type TwoDPoint");
+        }
+
         this.center = (TwoDPoint) points.get(0);
     }
 
@@ -87,6 +93,6 @@ public class Circle implements TwoDShape, Positionable {
      */
     @Override
     public String toString() {
-        return "Circle{ c: " + center + ", r: " + radius + "}";
+        return "Circle[center: " + this.center.getX() + ", " + this.center.getX() + "; radius: " + radius + "]";
     }
 }
