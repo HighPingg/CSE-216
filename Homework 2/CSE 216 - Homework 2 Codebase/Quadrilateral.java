@@ -260,4 +260,10 @@ public class Quadrilateral implements TwoDShape, Positionable {
     public String toString() {
         return "Quadrilateral" + vertices;
     }
+
+    @Override
+    public int compareTo(TwoDShape o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

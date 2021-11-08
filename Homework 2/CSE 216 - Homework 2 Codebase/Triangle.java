@@ -191,4 +191,10 @@ public class Triangle implements TwoDShape, Positionable {
     public String toString() {
         return "Triangle" + vertices;
     }
+
+    @Override
+    public int compareTo(TwoDShape o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

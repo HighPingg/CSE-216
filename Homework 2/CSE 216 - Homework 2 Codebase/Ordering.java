@@ -112,7 +112,7 @@ public class Ordering {
         lst.add(new Circle(10.6, 3.5, 16));
         lst.add(new Triangle(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.31), new TwoDPoint(13.59, 1.31))));
         lst.add(new Quadrilateral(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.23), new TwoDPoint(1.59, 7.31), new TwoDPoint(16.58, 4.15))));
-        printAllAndReturnLeast(lst, new Printer());
+        printAllAndReturnLeast(lst, new Printer<>());
 
     }
 
@@ -137,9 +137,9 @@ public class Ordering {
      * @return the least element from <code>aList</code>, as per the natural
      *         ordering of the shapes
      */
-    static Object printAllAndReturnLeast(List aList, AbstractPrinter aPrinter) {
-        Object least = aList.get(0);
-        for (Object t : aList) {
+    static <T extends Comparable<T>> T printAllAndReturnLeast(List<T> aList, AbstractPrinter<T> aPrinter) {
+        T least = aList.get(0);
+        for (T t : aList) {
             if (least.compareTo(t) > 0)
                 least = t;
             aPrinter.print(t);
