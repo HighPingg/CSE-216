@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Ordering {
 
@@ -30,7 +34,7 @@ public class Ordering {
         }
     }
 
-    static <T> void copy(List<? extends T> source, List<T> destination) {
+    static <T> void copy(Collection<? extends T> source, Collection<T> destination) {
         destination.addAll(source);
     }
 
@@ -74,7 +78,7 @@ public class Ordering {
          * copy() should work for the line commented with 'note-1' above while at the same time also working with the
          * lines commented with 'note-2', 'note-3', and 'note-4' below. */
 
-        /*
+        
         List<Number>       numbers   = new ArrayList<>();
         List<Double>       doubles   = new ArrayList<>();
         Set<Triangle>      triangles = new HashSet<>();
@@ -83,7 +87,7 @@ public class Ordering {
         copy(doubles, numbers); // note-2 //
         copy(quads, shapes);   // note-3 //
         copy(triangles, shapes); // note-4 //
-         */
+        
 
         /* ====== SECTION 3 ====== */
         /* uncomment the following lines of code and fill in the "..." constructors to create actual instances. You may
