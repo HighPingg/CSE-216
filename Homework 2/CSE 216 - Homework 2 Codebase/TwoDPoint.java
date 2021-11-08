@@ -110,6 +110,14 @@ public class TwoDPoint implements Point {
     }
 
     /**
+     * @return the distance between this point and the origin.
+     */
+    @Override
+    public double distanceFromOrigin() {
+        return distance(this, new TwoDPoint(0, 0));
+    }
+
+    /**
      * Deep clones this point.
      * 
      * @return the clone of this point.

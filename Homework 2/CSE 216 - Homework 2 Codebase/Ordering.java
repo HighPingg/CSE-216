@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,12 +14,23 @@ public class Ordering {
 
         @Override
         public int compare(TwoDShape o1, TwoDShape o2) {
-            return 0; // TODO
+            return ((Double) o1.getRoot().getX()).compareTo(o2.getRoot().getX());
         }
     }
 
-    // TODO: There's a lot wrong with this method. correct it so that it can work properly with generics.
-    static <T> void copy(List<TwoDShape> source, List<TwoDShape> destination) {
+    /**
+     * A comparator for two-dimensional points, based on the point with the least x-value. That is, sorting with this
+     * comparator must order all the shapes in a collection in increasing order of their x-values.
+     */
+    static class XLocationPointComparator implements Comparator<Point> {
+
+        @Override
+        public int compare(Point o1, Point o2) {
+            return ((Double) o1.getX()).compareTo(o2.getX());
+        }
+    }
+
+    static <T> void copy(List<? extends T> source, List<T> destination) {
         destination.addAll(source);
     }
 
@@ -29,13 +42,9 @@ public class Ordering {
 
         /* ====== Any additional code you write to create instances or call methods, must be above this line ====== */
         List<TwoDShape> shapes = new ArrayList<>();
-        List<TwoDPoint> points = new ArrayList<>();
+        List<Point> points = new ArrayList<>();
 
-        points.add(new TwoDPoint(-10.5, -6.3));
-        points.add(new TwoDPoint(12.4, -7.5));
-        points.add(new TwoDPoint(0, -1.2));
-        points.add(new TwoDPoint(8.5, 3.6));
-        points.add(new TwoDPoint(9.5, -11.8));
+        points.addAll(Arrays.asList(new TwoDPoint(7.79, 45.66), new ThreeDPoint(-21.9, 20.77, -176.22), new TwoDPoint(68.52, 75.81), new ThreeDPoint(29.08, 73.01, 38.38)));
 
         /* ====== SECTION 1 ====== */
         /* uncomment the following block and fill in the "..." constructors to create actual instances. If your
@@ -43,20 +52,21 @@ public class Ordering {
          * shapes being ordered by their smallest x-coordinate, area, volume, surface area, etc. */
 
         
-        shapes.add(new Circle(points.get(0).getX(), points.get(0).getY(), 16));
-        shapes.add(new Triangle(points));
-        shapes.add(new Quadrilateral(points));
+        shapes.add(new Circle(10.6, 3.5, 16));
+        shapes.add(new Triangle(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.31), new TwoDPoint(13.59, 1.31))));
+        shapes.add(new Quadrilateral(Arrays.asList(new TwoDPoint(3.59, 100.31), new TwoDPoint(30.59, 1.23), new TwoDPoint(1.59, 7.31), new TwoDPoint(16.58, 4.15))));
 
         copy(new ArrayList<Circle>(), shapes); // note-1 //
 
         // sorting 2d shapes according to various criteria
         shapes.sort(new XLocationShapeComparator());
-        Collections.sort(shapes); // TODO: Must sort the two-dimensional shapes in increasing of their area
+        
+        Collections.sort(shapes, (TwoDShape shape1, TwoDShape shape2) -> ((Double) shape1.area()).compareTo(shape2.area()));
 
         // sorting 2d points according to various criteria
-        // TODO: Implement a static nested class so that uncommenting the following line works. The XLocationPointComparator must sort all the points in a collection in increasing order of their x-values.
-        // points.sort(new XLocationPointComparator());
-        Collections.sort(points); // TODO: Must sort the points in increasing order of their distance from the origin
+        points.sort(new XLocationPointComparator());
+
+        Collections.sort(points, (Point point1, Point point2) -> ((Double) point1.distanceFromOrigin()).compareTo(point2.distanceFromOrigin()));
         
 
         /* ====== SECTION 2 ====== */

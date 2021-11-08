@@ -8,4 +8,8 @@ public interface Point {
      *         location in the geometric space.
      */
     double[] coordinates();
+
+    double getX();
+
+    double distanceFromOrigin();
 }

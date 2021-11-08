@@ -77,6 +77,16 @@ public class Triangle implements TwoDShape, Positionable {
     }
 
     /**
+     * Returns the left-most "root" vertex.
+     * 
+     * @return the "root" vertex.
+     */
+    @Override
+    public TwoDPoint getRoot() {
+        return vertices.get(0);
+    }
+
+    /**
      * @return the number of sides of this triangle, which is always set to three
      */
     @Override
@@ -161,5 +171,13 @@ public class Triangle implements TwoDShape, Positionable {
         double side3 = TwoDPoint.distance(vertices.get(2), vertices.get(1));
 
         return side1 + side2 + side3;
+    }
+
+    /**
+     * @return the String representation of this Triangle.
+     */
+    @Override
+    public String toString() {
+        return "Triangle{" + vertices + "}";
     }
 }

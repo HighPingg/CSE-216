@@ -20,4 +20,8 @@ public interface TwoDShape {
      * type meant to implement triangles.
      */
     boolean isMember(List<? extends Point> vertices);
+
+    double area();
+
+    TwoDPoint getRoot();
 }

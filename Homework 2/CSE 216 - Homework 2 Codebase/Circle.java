@@ -36,6 +36,14 @@ public class Circle implements TwoDShape, Positionable {
     }
 
     /**
+     * @return the center of this circle.
+     */
+    @Override
+    public TwoDPoint getRoot() {
+        return center;
+    }
+
+    /**
      * @return the number of sides of this circle, which is always set to positive
      *         infinity
      */
@@ -74,4 +82,11 @@ public class Circle implements TwoDShape, Positionable {
         return 2 * Math.PI * radius;
     }
 
+    /**
+     * @return the string representation of this object.
+     */
+    @Override
+    public String toString() {
+        return "Circle{ c: " + center + ", r: " + radius + "}";
+    }
 }

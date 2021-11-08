@@ -101,6 +101,16 @@ public class Quadrilateral implements TwoDShape, Positionable {
     }
 
     /**
+     * Returns the left-most "root" vertex.
+     * 
+     * @return the "root" vertex.
+     */
+    @Override
+    public TwoDPoint getRoot() {
+        return vertices.get(0);
+    }
+
+    /**
      * @return the number of sides of this quadrilateral, which is always set to
      *         four
      */
@@ -229,5 +239,13 @@ public class Quadrilateral implements TwoDShape, Positionable {
         double side4 = TwoDPoint.distance(vertices.get(3), vertices.get(0));
 
         return side1 + side2 + side3 + side4;
+    }
+
+    /**
+     * @return the String representation of this Quadrilateral.
+     */
+    @Override
+    public String toString() {
+        return "Quadrilateral{" + vertices + "}";
     }
 }
