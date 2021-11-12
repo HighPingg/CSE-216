@@ -130,7 +130,7 @@ public class Quadrilateral implements TwoDShape, Positionable {
      * <i>trivial</i> quadrilateral, where all four corner vertices are the same
      * point, is considered to be an invalid quadrilateral.
      *
-     * @param vertices the list of vertices to check against, where each vertex is a
+     * @param castedVertices the list of vertices to check against, where each vertex is a
      *                 <code>Point</code> type.
      * @return <code>true</code> if <code>vertices</code> is a valid collection of
      *         points for a quadrilateral, and <code>false</code> otherwise. For
@@ -153,36 +153,44 @@ public class Quadrilateral implements TwoDShape, Positionable {
          * are in a straight line)
          */
 
+        ArrayList<TwoDPoint> temp = new ArrayList<>();
+        temp.add((TwoDPoint) vertices.get(0));
+        temp.add((TwoDPoint) vertices.get(1));
+        temp.add((TwoDPoint) vertices.get(2));
+        temp.add((TwoDPoint) vertices.get(3));
+
+        List<? extends Point> castedVertices = new Quadrilateral(temp).getPosition();
+        
         ArrayList<TwoDPoint> triangle = new ArrayList<>();
 
         // Triangle ABC
-        triangle.add((TwoDPoint) vertices.get(0));
-        triangle.add((TwoDPoint) vertices.get(1));
-        triangle.add((TwoDPoint) vertices.get(2));
+        triangle.add((TwoDPoint) castedVertices.get(0));
+        triangle.add((TwoDPoint) castedVertices.get(1));
+        triangle.add((TwoDPoint) castedVertices.get(2));
 
         if (!(new Triangle(triangle).isMember(triangle)))
             return false;
 
         // Triangle ACD
-        triangle.set(0, (TwoDPoint) vertices.get(0));
-        triangle.set(1, (TwoDPoint) vertices.get(2));
-        triangle.set(2, (TwoDPoint) vertices.get(3));
+        triangle.set(0, (TwoDPoint) castedVertices.get(0));
+        triangle.set(1, (TwoDPoint) castedVertices.get(2));
+        triangle.set(2, (TwoDPoint) castedVertices.get(3));
 
         if (!(new Triangle(triangle).isMember(triangle)))
             return false;
             
         // Triangle BCD
-        triangle.set(0, (TwoDPoint) vertices.get(1));
-        triangle.set(1, (TwoDPoint) vertices.get(2));
-        triangle.set(2, (TwoDPoint) vertices.get(3));
+        triangle.set(0, (TwoDPoint) castedVertices.get(1));
+        triangle.set(1, (TwoDPoint) castedVertices.get(2));
+        triangle.set(2, (TwoDPoint) castedVertices.get(3));
 
         if (!(new Triangle(triangle).isMember(triangle)))
             return false;
             
         // Triangle ABD
-        triangle.set(0, (TwoDPoint) vertices.get(0));
-        triangle.set(1, (TwoDPoint) vertices.get(1));
-        triangle.set(2, (TwoDPoint) vertices.get(3));
+        triangle.set(0, (TwoDPoint) castedVertices.get(0));
+        triangle.set(1, (TwoDPoint) castedVertices.get(1));
+        triangle.set(2, (TwoDPoint) castedVertices.get(3));
 
         return new Triangle(triangle).isMember(triangle);
     }
