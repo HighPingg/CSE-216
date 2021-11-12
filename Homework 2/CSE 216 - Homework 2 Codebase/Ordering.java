@@ -46,9 +46,6 @@ public class Ordering {
      */
     public static void main(String[] args) {
 
-        ArrayList<TwoDPoint> vert = new ArrayList<>(Arrays.asList(new TwoDPoint(1,1), new TwoDPoint(2,2), new TwoDPoint(3,3), new TwoDPoint(-3,-3)));
-        System.out.println(new Quadrilateral(vert).isMember(vert));
-
         /* ====== Any additional code you write to create instances or call methods, must be above this line ====== */
         List<TwoDShape> shapes = new ArrayList<>();
         List<Point> points = new ArrayList<>();
