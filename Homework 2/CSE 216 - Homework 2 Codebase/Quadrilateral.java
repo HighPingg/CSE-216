@@ -6,6 +6,12 @@ public class Quadrilateral implements TwoDShape, Positionable {
     List<TwoDPoint> vertices;
 
     public Quadrilateral(List<TwoDPoint> vertices) {
+        if (vertices.size() < 4)
+            throw new IllegalArgumentException("Input List Must be at Least Size 4!");
+
+        if (!isMember(vertices))
+            throw new IllegalArgumentException("These Points Form an Illegal Quadrilateral!");
+
         this.setPosition(vertices);
     }
 
@@ -21,12 +27,13 @@ public class Quadrilateral implements TwoDShape, Positionable {
     @Override
     public void setPosition(List<? extends Point> points) {
 
+        if (points.size() < 4)
+            throw new IllegalArgumentException("Input List Must be at Least Size 4");
+
         for (Point point : points) {
             if (!(point instanceof TwoDPoint))
                 throw new IllegalArgumentException("Points must be of type TwoDPoint");
         }
-
-        vertices = new ArrayList<>();
 
         ArrayList<TwoDPoint> tempList = new ArrayList<>();
 
@@ -34,6 +41,21 @@ public class Quadrilateral implements TwoDShape, Positionable {
         tempList.add((TwoDPoint) points.get(1));
         tempList.add((TwoDPoint) points.get(2));
         tempList.add((TwoDPoint) points.get(3));
+
+        vertices = sortClockwise(tempList);
+    }
+
+    /**
+     * Sorts a given List of 4 points into Clockwise Order starting from the leftmost vertex.
+     * 
+     * @param points the points to sort in clockwise order.
+     * @return the List sorted in clockwise order.
+     */
+    private List<TwoDPoint> sortClockwise(List<TwoDPoint> points) {
+
+        ArrayList<TwoDPoint> returnList = new ArrayList<>();
+
+        ArrayList<TwoDPoint> tempList = new ArrayList<>(points);
 
         /*
          * Finds the index of the left most vertex, or the vertex if the smallest x
@@ -51,7 +73,7 @@ public class Quadrilateral implements TwoDShape, Positionable {
         }
 
         // Remove the rightmost vertex and add it to final list
-        vertices.add(tempList.remove(indexMinium));
+        returnList.add(tempList.remove(indexMinium));
 
         /*
          * Store each TwoDPoint using its slope to the rightmost vertex as its value and
@@ -60,7 +82,7 @@ public class Quadrilateral implements TwoDShape, Positionable {
          */
         ArrayList<Double> slopes = new ArrayList<>();
         for (TwoDPoint element : tempList) {
-            slopes.add(TwoDPoint.slope(element, vertices.get(0)));
+            slopes.add(TwoDPoint.slope(element, returnList.get(0)));
         }
 
         while (!slopes.isEmpty()) {
@@ -87,9 +109,11 @@ public class Quadrilateral implements TwoDShape, Positionable {
 
             // Adds that vertex to the final list and remove it from the temp and slope
             // lists.
-            vertices.add(tempList.remove(highestSlope));
+            returnList.add(tempList.remove(highestSlope));
             slopes.remove(highestSlope);
         }
+
+        return returnList;
     }
 
     /**
@@ -130,8 +154,8 @@ public class Quadrilateral implements TwoDShape, Positionable {
      * <i>trivial</i> quadrilateral, where all four corner vertices are the same
      * point, is considered to be an invalid quadrilateral.
      *
-     * @param castedVertices the list of vertices to check against, where each vertex is a
-     *                 <code>Point</code> type.
+     * @param castedVertices the list of vertices to check against, where each
+     *                       vertex is a <code>Point</code> type.
      * @return <code>true</code> if <code>vertices</code> is a valid collection of
      *         points for a quadrilateral, and <code>false</code> otherwise. For
      *         example, if three of the four vertices are in a straight line is
@@ -139,6 +163,9 @@ public class Quadrilateral implements TwoDShape, Positionable {
      */
     @Override
     public boolean isMember(List<? extends Point> vertices) {
+
+        if (vertices.size() < 4)
+            return false;
 
         for (Point vertex : vertices) {
             if (!(vertex instanceof TwoDPoint))
@@ -148,9 +175,9 @@ public class Quadrilateral implements TwoDShape, Positionable {
         /*
          * We can use the Triangle class's isMember to help us here. All quadrilaterals
          * can be split into 2 triangles. If we are given a quadrilateral ABCD, the 4
-         * triangles formed are ABC, ACD, BCD, ABD. As long as those 2 triangles are valid,
-         * then our quadrilateral is valid. (Essentially we're testing if any 3 points
-         * are in a straight line)
+         * triangles formed are ABC, ACD, BCD, ABD. As long as those 2 triangles are
+         * valid, then our quadrilateral is valid. (Essentially we're testing if any 3
+         * points are in a straight line)
          */
 
         ArrayList<TwoDPoint> temp = new ArrayList<>();
@@ -159,40 +186,43 @@ public class Quadrilateral implements TwoDShape, Positionable {
         temp.add((TwoDPoint) vertices.get(2));
         temp.add((TwoDPoint) vertices.get(3));
 
-        List<? extends Point> castedVertices = new Quadrilateral(temp).getPosition();
-        
+        List<TwoDPoint> castedVertices = sortClockwise(temp);
+
         ArrayList<TwoDPoint> triangle = new ArrayList<>();
 
-        // Triangle ABC
-        triangle.add((TwoDPoint) castedVertices.get(0));
-        triangle.add((TwoDPoint) castedVertices.get(1));
-        triangle.add((TwoDPoint) castedVertices.get(2));
+        try{
+            // Triangle ABC
+            triangle.add(castedVertices.get(0));
+            triangle.add(castedVertices.get(1));
+            triangle.add(castedVertices.get(2));
 
-        if (!(new Triangle(triangle).isMember(triangle)))
+            new Triangle(triangle);
+
+            // Triangle ACD
+            triangle.set(0, castedVertices.get(0));
+            triangle.set(1, castedVertices.get(2));
+            triangle.set(2, castedVertices.get(3));
+
+            new Triangle(triangle);
+
+            // Triangle BCD
+            triangle.set(0, castedVertices.get(1));
+            triangle.set(1, castedVertices.get(2));
+            triangle.set(2, castedVertices.get(3));
+
+            new Triangle(triangle);
+
+            // Triangle ABD
+            triangle.set(0, castedVertices.get(0));
+            triangle.set(1, castedVertices.get(1));
+            triangle.set(2, castedVertices.get(3));
+
+            new Triangle(triangle);
+        } catch (Exception e) {
             return false;
+        }
 
-        // Triangle ACD
-        triangle.set(0, (TwoDPoint) castedVertices.get(0));
-        triangle.set(1, (TwoDPoint) castedVertices.get(2));
-        triangle.set(2, (TwoDPoint) castedVertices.get(3));
-
-        if (!(new Triangle(triangle).isMember(triangle)))
-            return false;
-            
-        // Triangle BCD
-        triangle.set(0, (TwoDPoint) castedVertices.get(1));
-        triangle.set(1, (TwoDPoint) castedVertices.get(2));
-        triangle.set(2, (TwoDPoint) castedVertices.get(3));
-
-        if (!(new Triangle(triangle).isMember(triangle)))
-            return false;
-            
-        // Triangle ABD
-        triangle.set(0, (TwoDPoint) castedVertices.get(0));
-        triangle.set(1, (TwoDPoint) castedVertices.get(1));
-        triangle.set(2, (TwoDPoint) castedVertices.get(3));
-
-        return new Triangle(triangle).isMember(triangle);
+        return true;
     }
 
     /**
@@ -231,7 +261,6 @@ public class Quadrilateral implements TwoDShape, Positionable {
          * each triangle. We will then add up the area of these 2 triangles.
          */
 
-
         // Triangle ABC
         ArrayList<TwoDPoint> triangle1 = new ArrayList<>();
         triangle1.add(vertices.get(0));
@@ -252,7 +281,7 @@ public class Quadrilateral implements TwoDShape, Positionable {
      *         quadrilateral
      */
     public double perimeter() {
-        
+
         double side1 = TwoDPoint.distance(vertices.get(0), vertices.get(1));
         double side2 = TwoDPoint.distance(vertices.get(1), vertices.get(2));
         double side3 = TwoDPoint.distance(vertices.get(2), vertices.get(3));

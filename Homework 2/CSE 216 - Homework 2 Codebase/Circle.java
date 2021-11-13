@@ -7,6 +7,10 @@ public class Circle implements TwoDShape, Positionable {
     private double radius;
 
     public Circle(double x, double y, double r) {
+        if (r < 0) {
+            throw new IllegalArgumentException("Radius Musnt be negative");
+        }
+
         this.center = new TwoDPoint(x, y);
         this.radius = r;
     }

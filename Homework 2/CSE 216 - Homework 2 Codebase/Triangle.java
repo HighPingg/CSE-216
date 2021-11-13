@@ -6,6 +6,15 @@ public class Triangle implements TwoDShape, Positionable {
     List<TwoDPoint> vertices;
 
     public Triangle(List<TwoDPoint> vertices) {
+
+        if (vertices.size() < 3) {
+            throw new IllegalArgumentException("Input List Must be at Least Size 3!");
+        }
+
+        if (!isMember(vertices)) {
+            throw new IllegalArgumentException("These Points form an Illegal Triangle!");
+        }
+
         this.setPosition(vertices);
     }
 
@@ -20,6 +29,10 @@ public class Triangle implements TwoDShape, Positionable {
      */
     @Override
     public void setPosition(List<? extends Point> points) {
+
+        if (points.size() < 3) {
+            throw new IllegalArgumentException("Input List Must be at Least Size 3!");
+        }
 
         for (Point point : points) {
             if (!(point instanceof TwoDPoint))
@@ -112,6 +125,11 @@ public class Triangle implements TwoDShape, Positionable {
      */
     @Override
     public boolean isMember(List<? extends Point> vertices) {
+
+        // If input list less than 3 vertices, then this can not be formed into a
+        // Triangle, return false.
+        if (vertices.size() < 3)
+            return false;
 
         for (Point vertex : vertices) {
             if (!(vertex instanceof TwoDPoint))
