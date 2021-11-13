@@ -154,4 +154,9 @@ public class TwoDPoint implements Point {
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
+    
+    @Override
+    public int compareTo(Point o) {
+        return ((Double) this.distanceFromOrigin()).compareTo(o.distanceFromOrigin());
+    }
 }

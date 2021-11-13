@@ -97,7 +97,7 @@ public class Circle implements TwoDShape, Positionable {
      */
     @Override
     public String toString() {
-        return "Circle[center: " + this.center.getX() + ", " + this.center.getX() + "; radius: " + radius + "]";
+        return "Circle[center: " + this.center.getX() + ", " + this.center.getY() + "; radius: " + radius + "]";
     }
 
     @Override

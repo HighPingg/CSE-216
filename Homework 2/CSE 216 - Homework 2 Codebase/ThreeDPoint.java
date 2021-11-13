@@ -73,4 +73,9 @@ public class ThreeDPoint implements Point {
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
     }
+
+    @Override
+    public int compareTo(Point o) {
+        return ((Double) this.distanceFromOrigin()).compareTo(o.distanceFromOrigin());
+    }
 }

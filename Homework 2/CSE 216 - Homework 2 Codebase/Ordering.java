@@ -67,12 +67,12 @@ public class Ordering {
         // sorting 2d shapes according to various criteria
         shapes.sort(new XLocationShapeComparator());
         
-        Collections.sort(shapes, (TwoDShape shape1, TwoDShape shape2) -> ((Double) shape1.area()).compareTo(shape2.area()));
+        Collections.sort(shapes);
 
         // sorting 2d points according to various criteria
         points.sort(new XLocationPointComparator());
 
-        Collections.sort(points, (Point point1, Point point2) -> ((Double) point1.distanceFromOrigin()).compareTo(point2.distanceFromOrigin()));
+        Collections.sort(points);
         
 
         /* ====== SECTION 2 ====== */
