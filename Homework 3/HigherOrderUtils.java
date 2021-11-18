@@ -102,8 +102,8 @@ public class HigherOrderUtils {
      *         result of all the bifunctions being applied in sequence.
      */
     public static <T> T zip(List<T> args, List<NamedBiFunction<T, T, T>> bifunctions) {
-        if (args.size() < 2)
-            throw new IllegalArgumentException("There must be at least 2 elements in args.");
+        if (args.size() == 0)
+            throw new IllegalArgumentException("There must be at least 1 element in args.");
 
         if (bifunctions.size() < args.size() - 1)
             throw new IllegalArgumentException("There must be at least args.size() - 1 bifunctions.");
