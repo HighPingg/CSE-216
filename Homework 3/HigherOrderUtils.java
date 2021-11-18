@@ -1,6 +1,6 @@
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class HigherOrderUtils {
@@ -115,16 +115,17 @@ public class HigherOrderUtils {
 
     static class FunctionComposition<T, U, R> {
 
-        BiFunction<T, U, R> composition(BiFunction f, BiFunction g) {
+        BiFunction<Function<T, U>, Function<U, R>, Function<T, R>> composition = new BiFunction<Function<T, U>, Function<U, R>, Function<T, R>>() {
+            @Override
+            public Function<T, R> apply(Function<T, U> f, Function<U, R> g) {
+                return new Function<T, R>() {
+                    @Override
+                    public R apply(T t) {
+                        return g.apply(f.apply(t));
+                    }
+                };
+            }
+        };
 
-        }
-
-    }
-
-    public static void main(String[] args) {
-        List<Double> argz = Arrays.asList(1d, 1d, 3d, 0d, 4d);
-        List<NamedBiFunction<Double, Double, Double>> biFunctions = Arrays.asList(add, multiply, add, divide);
-
-        System.out.println(zip(argz, biFunctions));
     }
 }
