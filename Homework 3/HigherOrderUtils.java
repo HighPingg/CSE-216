@@ -102,11 +102,17 @@ public class HigherOrderUtils {
      *         result of all the bifunctions being applied in sequence.
      */
     public static <T> T zip(List<T> args, List<NamedBiFunction<T, T, T>> bifunctions) {
+        if (args.size() < 2)
+            throw new IllegalArgumentException("There must be at least 2 elements in args.");
+
+        if (bifunctions.size() < args.size() - 1)
+            throw new IllegalArgumentException("There must be at least args.size() - 1 bifunctions.");
+
         /*
          * Applies the BiFunction at index i to the i and i + 1 element. We store the
          * result of the operation in the i + 1 element and then move on to that result.
          */
-        IntStream.range(0, bifunctions.size())
+        IntStream.range(0, args.size() - 1)
                 .forEach(i -> args.set(i + 1, bifunctions.get(i).apply(args.get(i), args.get(i + 1))));
 
         // Return the last element with the stored solution.
