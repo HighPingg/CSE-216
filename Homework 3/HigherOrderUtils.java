@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.IntStream;
 
 public class HigherOrderUtils {
 
@@ -101,14 +102,12 @@ public class HigherOrderUtils {
      *         result of all the bifunctions being applied in sequence.
      */
     public static <T> T zip(List<T> args, List<NamedBiFunction<T, T, T>> bifunctions) {
-
         /*
          * Applies the BiFunction at index i to the i and i + 1 element. We store the
          * result of the operation in the i + 1 element and then move on to that result.
          */
-        for (int i = 0; i < args.size() - 1; i++) {
-            args.set(i + 1, bifunctions.get(i).apply(args.get(i), args.get(i + 1)));
-        }
+        IntStream.range(0, bifunctions.size())
+                .forEach(i -> args.set(i + 1, bifunctions.get(i).apply(args.get(i), args.get(i + 1))));
 
         // Return the last element with the stored solution.
         return args.get(args.size() - 1);
