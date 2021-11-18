@@ -12,7 +12,7 @@ public class HigherOrderUtils {
     /**
      * Adds two Doubles
      */
-    public static NamedBiFunction<Double, Double, Double> add = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> add = new NamedBiFunction<Double, Double, Double>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -28,7 +28,7 @@ public class HigherOrderUtils {
     /**
      * Subtracts two Doubles
      */
-    public static NamedBiFunction<Double, Double, Double> subtract = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> subtract = new NamedBiFunction<Double, Double, Double>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -44,7 +44,7 @@ public class HigherOrderUtils {
     /**
      * Multiplies two Doubles
      */
-    public static NamedBiFunction<Double, Double, Double> multiply = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> multiply = new NamedBiFunction<Double, Double, Double>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -60,7 +60,7 @@ public class HigherOrderUtils {
     /**
      * Divides two Doubles
      */
-    public static NamedBiFunction<Double, Double, Double> divide = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> divide = new NamedBiFunction<Double, Double, Double>() {
 
         @Override
         public Double apply(Double t, Double u) {
