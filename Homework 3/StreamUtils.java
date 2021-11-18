@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Homework 3
  */
-public class Homework_3 {
+public class StreamUtils {
 
 	/**
 	 * @param strings: the input collection of <code>String</code>s.
