@@ -32,11 +32,10 @@ public class StreamUtils {
 	 */
 	public static String longest(Collection<String> strings, boolean from_start) {
 		return strings.stream()
-				.reduce("",
-						(accumulator,
-								element) -> (accumulator.length() < element.length())
-										|| ((accumulator.length() == element.length()) && !from_start) ? element
-												: accumulator);
+				.reduce((accumulator,
+						element) -> (accumulator.length() < element.length())
+								|| ((accumulator.length() == element.length()) && !from_start) ? element : accumulator)
+				.orElse(null);
 	}
 
 	/**
@@ -54,12 +53,11 @@ public class StreamUtils {
 	 *         on <code>from_start</code>.
 	 */
 	public static <T extends Comparable<T>> T least(Collection<T> items, boolean from_start) {
-		return items
-				.stream().reduce(
-						(accumulator,
-								element) -> (element.compareTo(accumulator) < 0)
-										|| (element.compareTo(accumulator) == 0 && !from_start) ? element : accumulator)
-				.get();
+		return items.stream()
+				.reduce((accumulator,
+						element) -> (element.compareTo(accumulator) < 0)
+								|| (element.compareTo(accumulator) == 0 && !from_start) ? element : accumulator)
+				.orElse(null);
 	}
 
 	/**
