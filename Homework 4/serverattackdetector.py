@@ -2,24 +2,25 @@ class ServerAttackDetector:
     def __init__(self, file: str):
         self.__file = file
 
-    def detect(self):
+    def iterate_files(self):
         fileOpen = open(self.__file, mode = 'r')
 
-        # We discard first line since those are just headers
-        currentLine = fileOpen.readline()
+        previous = fileOpen.readline()  # Discard header
+        previous = fileOpen.readline()
 
-        # Go to second and third since the second line has no chance of
-        # meeting our criteria
-        previousLine = fileOpen.readline()  # Line 1
-        currentLine = fileOpen.readline()   # Line 2
-        count = 2                           # Therefore we start at 2
+        while True:
+            current = fileOpen.readline()
+            yield previous, current
+            previous = current
 
-        while not ServerAttackDetector.isSus(previousLine, currentLine) :
-            previousLine = currentLine
-            currentLine = fileOpen.readline()
+    def detect(self):
+        # We start at 2 
+        count = 2
+        for pair in self.iterate_files():
+            if ServerAttackDetector.isSus(pair[0], pair[1]):
+                return (count, pair[1])
+            
             count += 1
-
-        return (count, currentLine)
 
     @staticmethod
     def isSus(prev: str, curr: str) -> bool:
