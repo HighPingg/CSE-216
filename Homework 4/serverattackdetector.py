@@ -29,7 +29,7 @@ class ServerAttackDetector:
         prev = prev.split(",")
         curr = curr.split(",")
 
-        isUDP = curr[2].replace(" ", "") == "UDP"
+        isUDP = curr[2].replace(" ", "") == "UDP" and prev[2].replace(" ", "") == "UDP"
         isSuspicious = curr[12].replace(" ", "") == "suspicious" and prev[12].replace(" ", "") == "suspicious"
         isSmallDuration = float(curr[1].replace(" ", "")) < 1
 
